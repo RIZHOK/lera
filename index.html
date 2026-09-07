@@ -78,7 +78,9 @@
 
 <main>
   <div class="scene">
-    <video src="kiss.mp4" autoplay loop muted playsinline aria-label="Цьомк"></video>
+    <video id="kiss" autoplay loop muted playsinline poster="poster.jpg" aria-label="Цьомк">
+      <source src="kiss.mp4" type="video/mp4">
+    </video>
   </div>
 
   <h1>У мене є план<br>на <em>цей вечір</em>.</h1>
@@ -120,6 +122,11 @@
     s.style.animationDelay=Math.random()*3+'s';
     bg.appendChild(s);
   }
+  // відео: примусовий старт (Safari/iOS іноді не автозапускає)
+  const v=document.getElementById('kiss');
+  v.muted=true;
+  const play=()=>v.play().catch(()=>{});
+  play();document.addEventListener('touchstart',play,{once:true});document.addEventListener('click',play,{once:true});
   // «Ні» тікає
   const no=document.getElementById('no');
   function dodge(){
