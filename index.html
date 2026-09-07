@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Запрошення на побачення</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Manrope:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --beige:#F7EDE2; --cream:#FFF8F1; --pink:#F4A7B9; --pink-2:#E8829C; --pink-deep:#D9536F;
+    --cocoa:#5A3E3E; --cocoa-soft:#8C6B6B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:"Manrope",system-ui,sans-serif;color:var(--cocoa);
+    background:radial-gradient(ellipse 70% 50% at 50% 0%, #FBDDE5 0%, var(--beige) 60%);
+    min-height:100vh;overflow-x:hidden;
+  }
+
+  /* ---- фон: м'які плями та сердечка ---- */
+  .bg{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .blob{position:absolute;border-radius:50%;filter:blur(60px);opacity:.55}
+  .b1{width:420px;height:420px;background:#F9C4D2;top:-120px;left:-140px}
+  .b2{width:360px;height:360px;background:#FBD9E1;bottom:-100px;right:-120px}
+  .b3{width:260px;height:260px;background:#F4A7B9;top:45%;right:-90px;opacity:.35}
+  .b4{width:220px;height:220px;background:#FBD9E1;bottom:18%;left:-70px;opacity:.6}
+  .hf{position:absolute;bottom:-60px;color:#F4A7B9;font-size:22px;opacity:0;animation:float linear infinite}
+  @keyframes float{
+    0%{transform:translateY(0) rotate(-8deg);opacity:0}
+    10%{opacity:.7}
+    90%{opacity:.5}
+    100%{transform:translateY(-110vh) rotate(10deg);opacity:0}
+  }
+  .sparkle{position:absolute;width:6px;height:6px;background:#fff;border-radius:50%;opacity:.7;box-shadow:0 0 10px 3px #FBD9E1;animation:tw 3s ease-in-out infinite}
+  @keyframes tw{0%,100%{opacity:.2;transform:scale(.7)}50%{opacity:.9;transform:scale(1.2)}}
+
+  main{position:relative;z-index:1;max-width:640px;margin:0 auto;padding:7vh 24px 12vh;text-align:center}
+
+  .scene{width:min(78vw,300px);aspect-ratio:1;margin:0 auto 2.2rem;border-radius:50%;overflow:hidden;
+    background:var(--cream);box-shadow:0 18px 40px rgba(217,83,111,.18),0 0 0 8px rgba(244,167,185,.35)}
+  .scene video{width:100%;height:100%;object-fit:cover;display:block}
+
+  h1{font-family:"Cormorant Garamond",serif;font-weight:400;font-size:clamp(2.4rem,7vw,4.2rem);line-height:1.05;margin-bottom:1.25rem}
+  h1 em{font-style:italic;color:var(--pink-deep)}
+  .lead{font-size:1.08rem;line-height:1.7;max-width:44ch;margin:0 auto 3rem;color:var(--cocoa-soft)}
+
+  .ask h2{font-family:"Cormorant Garamond",serif;font-weight:400;font-style:italic;font-size:2.1rem;margin-bottom:1.4rem}
+  .btns{display:flex;gap:1rem;justify-content:center;align-items:center;min-height:3.6rem}
+  button{font:600 1rem "Manrope",sans-serif;padding:.95rem 2.3rem;border-radius:999px;cursor:pointer;border:0;
+    transition:transform .35s cubic-bezier(.2,.8,.2,1),background .2s}
+  button:focus-visible{outline:3px solid var(--cocoa);outline-offset:3px}
+  .yes{background:var(--pink-2);color:#fff;box-shadow:0 8px 20px rgba(217,83,111,.28)}
+  .yes:hover{transform:scale(1.06);background:var(--pink-deep)}
+  .no{background:var(--pink);color:var(--cocoa)}
+  .no.fixed{position:fixed;z-index:5}
+
+  .done{display:none;margin-top:1rem}
+  .done.show{display:block;animation:rise .6s ease-out both}
+  @keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+  .card{display:inline-block;background:var(--cream);border:1.5px solid var(--pink);border-radius:28px;
+    padding:2rem 2.4rem;box-shadow:0 14px 34px rgba(217,83,111,.15);max-width:420px}
+  .card .heart{font-size:2.6rem;color:var(--pink-deep);display:block;margin-bottom:.6rem;animation:beat 1.4s ease-in-out infinite}
+  @keyframes beat{0%,100%{transform:scale(1)}50%{transform:scale(1.12)}}
+  .card h2{font-family:"Cormorant Garamond",serif;font-weight:500;font-size:2rem;line-height:1.15;margin-bottom:.7rem}
+  .card p{line-height:1.6;color:var(--cocoa-soft)}
+  .card b{color:var(--pink-deep)}
+
+  .sign{margin-top:4rem;font-family:"Cormorant Garamond",serif;font-style:italic;font-size:1.4rem;color:var(--cocoa-soft)}
+
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="bg" id="bg">
+  <span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span><span class="blob b4"></span>
+</div>
+
+<main>
+  <div class="scene">
+    <video src="kiss.mp4" autoplay loop muted playsinline aria-label="Цьомк"></video>
+  </div>
+
+  <h1>У мене є план<br>на <em>цей вечір</em>.</h1>
+  <p class="lead">І в ньому є тільки ти. Куди підемо — не скажу. Скажу лише, що тобі сподобається.</p>
+
+  <section class="ask" id="ask">
+    <h2>Підеш зі мною на побачення?</h2>
+    <div class="btns">
+      <button class="yes" id="yes">Так</button>
+      <button class="no" id="no">Ні</button>
+    </div>
+  </section>
+
+  <section class="done" id="done">
+    <div class="card">
+      <span class="heart">♥</span>
+      <h2>Я знав, що ти скажеш «так».</h2>
+      <p>Сьогодні о <b>18:40</b> будь готова — я чекатиму на тебе.<br>Місце — секретне.</p>
+    </div>
+  </section>
+
+  <p class="sign">— з любов'ю, Я</p>
+</main>
+
+<script>
+  // сердечка та іскорки на фоні
+  const bg=document.getElementById('bg');
+  for(let i=0;i<14;i++){
+    const h=document.createElement('span');h.className='hf';h.textContent='♥';
+    h.style.left=Math.random()*100+'%';
+    h.style.fontSize=(14+Math.random()*22)+'px';
+    h.style.animationDuration=(14+Math.random()*12)+'s';
+    h.style.animationDelay=(-Math.random()*26)+'s';
+    bg.appendChild(h);
+  }
+  for(let i=0;i<18;i++){
+    const s=document.createElement('span');s.className='sparkle';
+    s.style.left=Math.random()*100+'%';s.style.top=Math.random()*100+'%';
+    s.style.animationDelay=Math.random()*3+'s';
+    bg.appendChild(s);
+  }
+  // «Ні» тікає
+  const no=document.getElementById('no');
+  function dodge(){
+    no.classList.add('fixed');
+    const pad=24,w=no.offsetWidth,h=no.offsetHeight;
+    no.style.left=pad+Math.random()*(innerWidth-w-pad*2)+'px';
+    no.style.top=pad+Math.random()*(innerHeight-h-pad*2)+'px';
+  }
+  no.addEventListener('mouseenter',dodge);
+  no.addEventListener('touchstart',e=>{e.preventDefault();dodge();},{passive:false});
+  no.addEventListener('click',dodge);
+  document.getElementById('yes').addEventListener('click',()=>{
+    document.getElementById('ask').style.display='none';
+    no.remove();
+    document.getElementById('done').classList.add('show');
+  });
+</script>
+</body>
+</html>
